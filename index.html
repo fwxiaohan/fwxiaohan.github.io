@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+   
+    <style type="text/css"  >
+    * {
+	margin:0;
+	padding:0;
+}
+#cav {
+	background:black;
+	display:block;
+}</style>
+</head>
+<body>
+    <canvas id="cav" width="" height=""></canvas>
+    <script type="text/javascript" >var ocav = document.getElementById("cav");
+        var ctx = ocav.getContext("2d");
+        var W = window.innerWidth;
+        var H = window.innerHeight;
+        ocav.width = W;
+        ocav.height = H;
+        var fontsize = 16;
+        var columns = Math.ceil(W / fontsize);
+        var drops = [];
+        var texts = "0123456789".split("");
+        for (var i = 0; i < columns; i++) {
+            drops[i] = 0;
+        }
+        
+        function run() {
+            ctx.fillStyle = "rgba(0,0,0,0.05)";
+            ctx.fillRect(0, 0, W, H);
+            ctx.fillStyle = "#0f0";
+            ctx.font = fontsize + "px Arial";
+            for (var i = 0; i < columns; i++) {
+                var text = texts[Math.floor(Math.random() * texts.length)];
+                ctx.fillText(text, i * fontsize, drops[i] * fontsize);
+                if (drops[i] * fontsize > H || Math.random() > 0.95) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(run, 30);
+    </script>
+</body>
+</html>
